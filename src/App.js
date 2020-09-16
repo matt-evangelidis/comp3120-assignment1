@@ -1,7 +1,24 @@
 import React from 'react';
 import './App.css';
+import Message from './components/Message';
 
 function App() {
+  
+  const user = {
+    id: "Bobalooba",
+    password: "bob",
+    avatar: "http://robohash.org/bob",
+    follows: [
+        "Barfoo",
+        "Jimbulator"
+    ]
+  }
+
+  const message = {
+    timestamp: "2020-07-14 15:31:21",
+    content: "A post"
+  }
+  
   return (
     <div className="App">
       <header className="header">
@@ -14,6 +31,7 @@ function App() {
           </ul>
           </nav>
       </header>
+      <div><Message user={user} message={message}/> </div>
     </div>
 
   );
