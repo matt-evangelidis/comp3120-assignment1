@@ -1,7 +1,9 @@
 import axios from 'axios';
-const baseURL = "/api/"
+const baseURL = "/"
 
 const login = () => {}
+
+const logout = () => {}
 
 const post = () => {}
 

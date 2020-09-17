@@ -17,10 +17,12 @@ apiRouter.get('/', (req, res) => {
     res.send('<h1>Hello World!</h1>')
   })
 
+//GET all users
 apiRouter.get('/api/users', (req, res) => {
     res.json(users)
 })
 
+//GET all posts
 apiRouter.get('/api/posts', (req, res) => {
   res.json(posts)
 })

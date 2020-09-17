@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Message from './components/Message';
+import Post from './components/Post';
 
 function App() {
   
@@ -14,7 +14,7 @@ function App() {
     ]
   }
 
-  const message = {
+  const post = {
     timestamp: "2020-07-14 15:31:21",
     content: "A post"
   }
@@ -31,7 +31,7 @@ function App() {
           </ul>
           </nav>
       </header>
-      <div><Message user={user} message={message}/> </div>
+      <Post user={user} post={post}/>
     </div>
 
   );
