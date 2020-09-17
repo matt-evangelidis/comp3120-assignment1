@@ -1,8 +1,12 @@
 import React from 'react';
+import userService from '../services/users';
 
-const Post = ({user, post}) => {
+const Post = ({post}) => {
     
     //const userURL = "/users/" + user.id;
+
+    const user = userService.findUser(post)
+
     console.log(user)
     //<a className = "post" href = {userURL}>@{user.id}</a>
     //<a className = "post" href = {userURL}>@{user.id}</a>

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Post from './components/Post';
+import postService from './services/posts';
+import userService from './services/users';
 
 function App() {
   
@@ -18,6 +20,27 @@ function App() {
     timestamp: "2020-07-14 15:31:21",
     content: "A post"
   }
+
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+      postService.getAll()
+      .then((data) => {
+        console.log("response: ", data)
+        setPosts(data)
+      })
+    },[])
+
+
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    userService.getAll()
+    .then((data) => {
+      console.log("response: ", data)
+      setUsers(data)
+    })
+  },[])
   
   return (
     <div className="App">
@@ -31,7 +54,8 @@ function App() {
           </ul>
           </nav>
       </header>
-      <Post user={user} post={post}/>
+      {/* <Post user={user} post={post}/> */}
+      {posts.map((post) => (<Post post={post}/>))}
     </div>
 
   );

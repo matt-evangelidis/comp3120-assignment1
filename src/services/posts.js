@@ -11,4 +11,4 @@ const getAll = () => {
 //                 .then(response => response.data)
 // }
 
-export default all
+export default {getAll}
