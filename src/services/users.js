@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseURL = "/"
+const baseURL = "/api/"
 
 const getAll = () => {
     return axios.get(baseURL + "users")
@@ -7,8 +7,9 @@ const getAll = () => {
 }
 
 const findUser = (users, post) => {
-    const user = users.filter(u => u.id === post.user)
+    const user = users.find(u => (u.id === post.user))
     console.log("Found user: ", user)
+    return user
 }
 
 export default {getAll, findUser}

@@ -3,6 +3,7 @@ import './App.css';
 import Post from './components/Post';
 import postService from './services/posts';
 import userService from './services/users';
+import util from './utils/utils'
 
 function App() {
   
@@ -20,7 +21,15 @@ function App() {
     timestamp: "2020-07-14 15:31:21",
     content: "A post"
   }
+  const [users, setUsers] = useState([])
 
+  useEffect(() => {
+    userService.getAll()
+    .then((data) => {
+      console.log("response: ", data)
+      setUsers(data)
+    })
+  },[])
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -31,17 +40,6 @@ function App() {
       })
     },[])
 
-
-  const [users, setUsers] = useState([])
-
-  useEffect(() => {
-    userService.getAll()
-    .then((data) => {
-      console.log("response: ", data)
-      setUsers(data)
-    })
-  },[])
-  
   return (
     <div className="App">
       <header className="header">
@@ -54,8 +52,10 @@ function App() {
           </ul>
           </nav>
       </header>
+      {/* <ul>{users.map(user => <li key={user.id}>{user.id}</li>)}</ul> */}
       {/* <Post user={user} post={post}/> */}
-      {posts.map((post) => (<Post post={post}/>))}
+      {posts.map(post => <Post key={post.id} user={util.findUser(users, post)} post={post}/>)}
+      
     </div>
 
   );
