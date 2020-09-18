@@ -7,20 +7,6 @@ import util from './utils/utils'
 
 function App() {
   
-  const user = {
-    id: "Bobalooba",
-    password: "bob",
-    avatar: "http://robohash.org/bob",
-    follows: [
-        "Barfoo",
-        "Jimbulator"
-    ]
-  }
-
-  const post = {
-    timestamp: "2020-07-14 15:31:21",
-    content: "A post"
-  }
   const [users, setUsers] = useState([])
 
   useEffect(() => {
@@ -52,8 +38,6 @@ function App() {
           </ul>
           </nav>
       </header>
-      {/* <ul>{users.map(user => <li key={user.id}>{user.id}</li>)}</ul> */}
-      {/* <Post user={user} post={post}/> */}
       {posts.map(post => <Post key={post.id} user={util.findUser(users, post)} post={post}/>)}
       
     </div>

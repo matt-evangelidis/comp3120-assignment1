@@ -6,10 +6,4 @@ const getAll = () => {
                 .then(response => response.data)
 }
 
-const findUser = (users, post) => {
-    const user = users.find(u => (u.id === post.user))
-    console.log("Found user: ", user)
-    return user
-}
-
-export default {getAll, findUser}
+export default {getAll}

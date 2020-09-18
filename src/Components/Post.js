@@ -1,5 +1,4 @@
 import React from 'react';
-import userService from '../services/users';
 
 const Post = (props) => {
     
