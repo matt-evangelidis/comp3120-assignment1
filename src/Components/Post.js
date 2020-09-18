@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Post = (props) => {
+const Post = ({user, post}) => {
     
-    console.log("props: ", props)
-
-    const user = props.user
-    const post = props.post
+    console.log("User: ", user)
+    console.log("Post: ", post)
 
     //const userURL = "/users/" + user.id;
 
