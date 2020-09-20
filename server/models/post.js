@@ -27,6 +27,6 @@ postSchema.set('toJSON', {
     }
   })
 
-const Post = mongoose.model('Post', userSchema)
+const Post = mongoose.model('Post', postSchema)
 
 module.exports = Post
