@@ -1,0 +1,2 @@
+SECRET: the database connection is achieved through this
+PORT=3001

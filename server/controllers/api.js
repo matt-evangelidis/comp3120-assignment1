@@ -3,6 +3,8 @@ const fs = require("fs")
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+const User = require('../models/user')
+
 //parse JSON file into memory
 const rawData = fs.readFileSync("server/sampledata1.json")
 const data = JSON.parse(rawData)
@@ -18,8 +20,15 @@ apiRouter.get('/', (req, res) => {
   })
 
 //GET all users
+// apiRouter.get('/api/users', (req, res) => {
+//     res.json(users)
+// })
+
+//Get all users, from MongoDB
 apiRouter.get('/api/users', (req, res) => {
+  User.find({}).then(users => {
     res.json(users)
+  })
 })
 
 //GET all posts
