@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 const User = require('../models/user')
+const Post = require('../models/post')
 
 //parse JSON file into memory
 const rawData = fs.readFileSync("server/sampledata1.json")
@@ -34,6 +35,13 @@ apiRouter.get('/api/users', (req, res) => {
 //GET all posts
 apiRouter.get('/api/posts', (req, res) => {
   res.json(posts)
+})
+
+//GET all posts, from MongoDB
+apiRouter.get('/api/posts', (req, res) => {
+  Post.find({}).then(posts => {
+    res.json(posts)
+  })
 })
 
 module.exports = apiRouter
