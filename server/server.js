@@ -6,11 +6,13 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
 const apiRouter = require("./controllers/api")
+const usersRouter = require('./controllers/users')
 
 const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(apiRouter)
+app.use('/api/users', usersRouter)
 
 const PORT = process.env.PORT || 3001
 console.log(PORT)

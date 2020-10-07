@@ -41,7 +41,7 @@ function App() {
           </nav>
       </header>
       {/* {posts.map(post => <Post key={post.id} user={util.findUser(users, post)} post={post}/>)} */}
-      <PostForm user={users[0]}/>
+      {/* <PostForm user={users[0]}/> */}
       <PostList users={users} posts={posts}/>
       
     </div>

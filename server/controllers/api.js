@@ -12,6 +12,7 @@ const data = JSON.parse(rawData)
 
 const apiRouter = express.Router()
 
+
 //variables for data
 const users = data.users
 const posts = data.posts
@@ -19,18 +20,6 @@ const posts = data.posts
 apiRouter.get('/', (req, res) => {
     res.send('<h1>Hello World!</h1>')
   })
-
-//GET all users
-// apiRouter.get('/api/users', (req, res) => {
-//     res.json(users)
-// })
-
-//Get all users, from MongoDB
-apiRouter.get('/api/users', (req, res) => {
-  User.find({}).then(users => {
-    res.json(users)
-  })
-})
 
 //GET all posts
 // apiRouter.get('/api/posts', (req, res) => {

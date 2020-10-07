@@ -1,5 +1,6 @@
 //mongoose schema
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator')
 
 const url = process.env.MONGODB_URI
 console.log("Connecting to", url)
@@ -13,16 +14,23 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   })
 
 const userSchema = new mongoose.Schema({
-  id: String,
-  password: String,
+  id: {
+    type: String,
+    unique: true
+  },
+  passwordHash: String,
   avatar: String,
   follows: [String]
 })
+
+userSchema.plugin(uniqueValidator)
 
 userSchema.set('toJSON', {
     transform: (document, returnedObject) => {
       delete returnedObject._id
       delete returnedObject.__v
+
+      delete returnedObject.passwordHash
     }
   })
 
