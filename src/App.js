@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import Post from './components/Post';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
 import postService from './services/posts';
 import userService from './services/users';
-import util from './utils/utils'
 
 function App() {
   
@@ -18,7 +16,20 @@ function App() {
       setUsers(data)
     })
   },[])
+
   const [posts, setPosts] = useState([])
+  
+  const addNewPost = (newPost) => {
+      const postObject = {
+        user: newPost.user,
+        content: newPost.content
+    }
+    postService.create(postObject)
+    .then(data => {
+      console.log("POST Response: ", data)
+      setPosts([...posts, data])
+    })
+  }
 
   useEffect(() => {
       postService.getAll()
@@ -41,7 +52,7 @@ function App() {
           </nav>
       </header>
       {/* {posts.map(post => <Post key={post.id} user={util.findUser(users, post)} post={post}/>)} */}
-      {/* <PostForm user={users[0]}/> */}
+      <PostForm user={users[0]} updateFn={addNewPost}/>
       <PostList users={users} posts={posts}/>
       
     </div>

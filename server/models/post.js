@@ -13,15 +13,23 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   })
 
 const postSchema = new mongoose.Schema({
-  id: Number,
-  user: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
   timestamp: Date,
   content: String,
-  likes: [String]
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ]
 })
 
 postSchema.set('toJSON', {
     transform: (document, returnedObject) => {
+      returnedObject.id = returnedObject._id.toString()
       delete returnedObject._id
       delete returnedObject.__v
     }
