@@ -6,7 +6,7 @@ const getAll = () => {
                 .then(response => response.data)
 }
 
-const create = async(newObject) => {
+const create = (newObject) => {
     console.log("axios post")
     return axios.post(baseURL + "posts", newObject)
                 .then(response => response.data)

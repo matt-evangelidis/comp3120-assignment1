@@ -4,17 +4,8 @@ import postService from '../services/posts'
 
 const PostForm = ({user, updateFn}) => {
     const initialState = {user: user, content:"What's on your mind?"}
+    
     const [newPost, setNewPost] = useState(initialState)
-
-    // const addPost = (event) => {
-    //     event.preventDefault()
-    //     const postObject = {
-    //         user: user,
-    //         content: newPost
-    //     }
-    //     console.log("The Post: ", postObject)
-    //     postService.create(postObject)
-    // }
 
     const handlePostChange = (event) => {
         console.log(event.target.value)
