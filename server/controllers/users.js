@@ -10,6 +10,22 @@ usersRouter.get('/', async (request, response) => {
     response.json(users)
 })
 
+//get user by id
+usersRouter.get('/:id', async (request, response) => {
+    try { 
+        const user = await User.findById(request.params.id)
+        if (user) {
+            console.log("Retrieved user:", user.username)
+            response.json(user)}
+        else {
+            response.status(404).end()
+        }}
+    catch (error) {
+        console.log(error)
+        response.status(400).send({error: 'bad id'})
+    }
+})
+
 //create new user
 usersRouter.post('/', async (request, response) => {
     const body = request.body

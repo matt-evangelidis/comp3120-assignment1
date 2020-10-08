@@ -2,8 +2,10 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
+import LoginForm from './components/LoginForm';
 import postService from './services/posts';
 import userService from './services/users';
+import loginService from './services/login'
 import Users from './components/Users'
 import Home from './components/Home'
 
@@ -15,6 +17,7 @@ from 'react-router-dom'
 
 function App() {
   
+  //Users state
   const [users, setUsers] = useState([])
 
   useEffect(() => {
@@ -25,14 +28,11 @@ function App() {
     })
   },[])
 
+  //Posts state
   const [posts, setPosts] = useState([])
   
   const addNewPost = (newPost) => {
-      const postObject = {
-        user: newPost.user,
-        content: newPost.content
-    }
-    postService.create(postObject)
+    postService.create(newPost)
     .then(data => {
       console.log("POST Response: ", data)
       setPosts([...posts, data])
@@ -47,23 +47,59 @@ function App() {
       })
     },[])
 
-  return (
-    // <div className="App">
-    //   <header className="header">
-    //       <nav className="navbar">
-    //       <ul>
-    //         <li>Home</li>
-    //         <li>All Posts</li>
-    //         <li>Users</li>
-    //         <li>About</li>
-    //       </ul>
-    //       </nav>
-    //   </header>
-    //   {/* {posts.map(post => <Post key={post.id} user={util.findUser(users, post)} post={post}/>)} */}
-    //   <PostForm user={users[0]} updateFn={addNewPost}/>
-    //   <PostList users={users} posts={posts}/>
-    // </div>
+    //Login state
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [user, setUser] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
 
+    const storeUser = () => {
+      const loggedUserJSON = window.localStorage.getItem("loggedUser")
+
+      if (loggedUserJSON) {
+        const user = JSON.parse(loggedUserJSON)
+        setUser(user)
+        postService.setToken(user.token)
+      }
+    }
+    useEffect(() => storeUser(),[])
+
+    const loginHandle = async (event) => {
+        event.preventDefault()
+        console.log("Login Form Submitted", username, password)
+
+        try {
+            const user = await loginService.login({username, password})
+
+            window.localStorage.setItem("loggedUser", JSON.stringify(user))
+
+            postService.setToken(user.token)
+            setUser(user)
+            setUsername('')
+            setPassword('')
+            console.log("Logged in")
+        }
+        catch (exception) {
+            setErrorMessage('Wrong Credentials')
+            setTimeout(() => {setErrorMessage(null)}, 5000)
+        }
+    }
+
+    const loginForm = () => (
+      <LoginForm
+      username={username}
+      password={password}
+      handleUsername={({target}) => setUsername(target.value)}
+      handlePassword={({target}) => setPassword(target.value)}
+      handleSubmit={loginHandle}
+      />
+    )
+
+    const postForm = () => (
+      <PostForm user={user} updateFn={addNewPost}/>
+    )
+
+  return (
     <Router>
       <div>
         <Link to="/">Home</Link>
@@ -79,12 +115,17 @@ function App() {
           <Users users={users}/>
         </Route>
         <Route path="/">
-          <Home users={users}/>
-          <PostForm user={users[0]} updateFn={addNewPost}/>
+          {user === null ? 
+            loginForm():
+            <div>
+              <p>{user.username} logged in</p>
+              {postForm()}
+            </div>
+          }
+          <Home user={user}/>
         </Route>
       </Switch>
     </Router>
-
   );
 }
 

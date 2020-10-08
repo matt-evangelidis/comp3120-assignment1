@@ -1,9 +1,7 @@
 import React from 'react'
 import User from './User'
 
-const Home = ({users}) => {
-    const user = users[0]
-    console.log("Current User:", user)
+const Home = ({user}) => {
     if (user != null) {
         return(
             <User user={user}/>
@@ -11,7 +9,7 @@ const Home = ({users}) => {
     }
     else {
         return(
-            <p>User not Found!</p>
+            <p>No User Logged In</p>
         )
     }
 }

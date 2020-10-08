@@ -1,12 +1,30 @@
 import React, {useState} from 'react';
+import loginService from '../services/login'
 
-const LoginForm = ({user, setUser}) => {
+const LoginForm = ({
+    handleSubmit,
+    handleUsername,
+    handlePassword,
+    username,
+    password
+}) => {
 
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
 
-    const formHandler = (event) => {
-        event.preventDefault()
-        console.log("Login Form Submitted", username, password)
-    }
+    return(
+        <form onSubmit={handleSubmit}>
+            <div>
+                username
+                <input type="text" value={username} name="Username" 
+                onChange={handleUsername}/>
+            </div>
+            <div>
+                password
+                <input type="text" value={password} name="Password" 
+                onChange={handlePassword}/>
+            </div>
+            <button type="submit">login</button>
+        </form>
+    )
 }
+
+export default LoginForm

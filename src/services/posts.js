@@ -1,20 +1,29 @@
 import axios from 'axios';
-const baseURL = "/api/"
+const baseURL = "/api/posts"
+
+let token = null
+
+const setToken = newToken => {
+    token = `bearer ${newToken}`
+}
 
 const getAll = () => {
-    return axios.get(baseURL + "posts")
+    return axios.get(baseURL)
                 .then(response => response.data)
 }
 
-const create = (newObject) => {
-    console.log("axios post")
-    return axios.post(baseURL + "posts", newObject)
-                .then(response => response.data)
+const create = async (newObject) => {
+    const config = {
+        headers: {Authorization: token},
+    }
+
+    const response = await axios.post(baseURL, newObject, config)
+    return response.data
 }
 
 const update = (post) => {
-    return axios.put(baseURL + "posts", post)
+    return axios.put(baseURL, post)
                 .then(response => response.data)
 }
 
-export default {getAll, create, update}
+export default {getAll, create, update, setToken}
