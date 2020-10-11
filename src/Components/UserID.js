@@ -33,7 +33,6 @@ const UserID = ({userFn, postFn}) => {
             <div>
                 <User user={user}/>
                 <UserPosts user={user} posts={userPosts}/>
-
             </div>
         )
     }

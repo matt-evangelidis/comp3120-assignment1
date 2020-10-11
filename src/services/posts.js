@@ -17,6 +17,30 @@ const getPost = async (postId) => {
     return response.data
 }
 
+const likePost = async (user, postId) => {
+    console.log("Logged User:", user)
+    console.log("Post ID:", postId)
+    const data = {
+        user: user,
+        postId: postId
+    }
+    const response = await axios.put(baseURL + '/like', data)
+    console.log("Liked Post:", response.data)
+    return response.data
+}
+
+const unlikePost = async (user, postId) => {
+    console.log("Logged User:", user)
+    console.log("Post ID:", postId)
+    const data = {
+        user: user,
+        postId: postId
+    }
+    const response = await axios.put(baseURL + '/unlike', data)
+    console.log("Unliked Post:", response.data)
+    return response.data
+}
+
 const create = async (newObject) => {
     const config = {
         headers: {Authorization: token},
@@ -31,4 +55,4 @@ const update = (post) => {
                 .then(response => response.data)
 }
 
-export default {getAll, getPost, create, update, setToken}
+export default {getAll, getPost, likePost, unlikePost, create, update, setToken}

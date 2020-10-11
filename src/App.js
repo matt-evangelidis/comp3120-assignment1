@@ -130,10 +130,10 @@ function App() {
 
       <Switch>
         <Route path="/posts/:id">
-          <PostID userFn={userService.getAll} postFn={postService.getAll}/>
+          <PostID loggedUser={user} userFn={userService.getAll} postFn={postService.getAll}/>
         </Route>
         <Route path="/posts">
-          <PostList users={users} posts={posts}/>
+          <PostList loggedUser = {user} users={users} posts={posts}/>
         </Route>
         <Route path="/users/:id">
           <UserID userFn={userService.getAll} postFn={postService.getAll}/>

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import Post from './Post'
 
-const PostID = ({userFn, postFn}) => {
+const PostID = ({loggedUser,userFn, postFn}) => {
     const [postData, setPostData] = useState()
     const [userData, setUserData] = useState()
     const id = useParams().id
@@ -30,7 +30,7 @@ const PostID = ({userFn, postFn}) => {
         const user = userData.find(u => u.id === post.user)
 
         return(
-            <Post user={user} post={post}/>
+            <Post loggedUser={loggedUser}user={user} post={post}/>
         )
     }
 

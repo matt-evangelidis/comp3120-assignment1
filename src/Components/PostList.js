@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Post from './Post';
 import util from '../utils/utils'
 
-const PostList = ({users, posts}) => {
+const PostList = ({loggedUser, users, posts}) => {
     const [sortedPosts, setPosts] = useState(posts)
 
     const sortFirstLast = (posts) => {
@@ -31,6 +31,7 @@ const PostList = ({users, posts}) => {
         <button onClick={() => sortLastFirst(posts)}>Sort By Oldest</button>
         {sortedPosts.map(post => 
         <Post key={post.id} 
+            loggedUser={loggedUser}
             user={util.findUser(users, post)} 
             post={post}/>)}
     </div>
