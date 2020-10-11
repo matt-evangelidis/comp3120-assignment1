@@ -15,7 +15,7 @@ usersRouter.get('/:id', async (request, response) => {
     try { 
         const user = await User.findById(request.params.id)
         if (user) {
-            console.log("Retrieved user:", user.username)
+            console.log("Retrieved user:", user)
             response.json(user)}
         else {
             response.status(404).end()

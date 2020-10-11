@@ -6,4 +6,10 @@ const getAll = () => {
                 .then(response => response.data)
 }
 
-export default {getAll}
+const getUser = async (userId) => {
+    const response = await axios.get(baseURL + '/' + userId)
+    console.log("Response from getUser:",response.data)
+    return response.data
+}
+
+export default {getAll, getUser}

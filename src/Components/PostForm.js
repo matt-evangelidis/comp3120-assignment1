@@ -1,18 +1,7 @@
-import React, {useState, useEffect} from 'react';
-import Post from './Post';
-import postService from '../services/posts'
+import React, {useState} from 'react';
 
 const PostForm = ({user, updateFn}) => {
     const [newPost, setNewPost] = useState("")
-
-    // const handlePostChange = (event) => {
-    //     console.log(event.target.value)
-    //     const postObject = {
-    //         user: user,
-    //         content: event.target.value
-    //     }
-    //     setNewPost(postObject)
-    // }
 
     const formHandler = (event) => {
         event.preventDefault()

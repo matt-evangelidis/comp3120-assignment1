@@ -2,12 +2,10 @@ import React from 'react';
 
 const User = ({user}) =>{
     return(
-        <div>
+        <li className="user">
             <img src={user.avatar} alt={user.username}/>
-            <ul>
-                <li>{user.username}</li>
-            </ul>
-        </div>
+            <a href={`/users/${user.id}`}>{user.username}</a>
+        </li>
     )
 }
 

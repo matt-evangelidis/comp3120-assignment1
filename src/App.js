@@ -8,6 +8,8 @@ import userService from './services/users';
 import loginService from './services/login'
 import Users from './components/Users'
 import Home from './components/Home'
+import PostID from './components/PostID'
+import UserID from './components/UserID'
 
 import {
   BrowserRouter as Router,
@@ -23,7 +25,7 @@ function App() {
   useEffect(() => {
     userService.getAll()
     .then((data) => {
-      console.log("response: ", data)
+      console.log("Users response: ", data)
       setUsers(data)
     })
   },[])
@@ -34,7 +36,7 @@ function App() {
   const addNewPost = (newPost) => {
     postService.create(newPost)
     .then(data => {
-      console.log("POST Response: ", data)
+      console.log("Posts Response: ", data)
       setPosts([...posts, data])
     })
   }
@@ -62,6 +64,21 @@ function App() {
         postService.setToken(user.token)
       }
     }
+    const getUser = () => {
+      const loggedUser = window.localStorage.getItem("loggedUser")
+      
+      if (loggedUser){
+        const user = JSON.parse(loggedUser)
+        return user
+      }
+      return null
+    }
+    const logout = () => {
+      setUser(null)
+      window.localStorage.removeItem("loggedUser")
+      console.log("Logged Out")
+    }
+    
     useEffect(() => storeUser(),[])
 
     const loginHandle = async (event) => {
@@ -70,6 +87,7 @@ function App() {
 
         try {
             const user = await loginService.login({username, password})
+            console.log("User:",user)
 
             window.localStorage.setItem("loggedUser", JSON.stringify(user))
 
@@ -105,11 +123,20 @@ function App() {
         <Link to="/">Home</Link>
         <Link to="/posts">All Posts</Link>
         <Link to="/users">Users</Link>
+        {user === null ?
+          null :
+          <Link to={`/users/${getUser().id}`}>{user.username}</Link>}
       </div>
 
       <Switch>
+        <Route path="/posts/:id">
+          <PostID userFn={userService.getAll} postFn={postService.getAll}/>
+        </Route>
         <Route path="/posts">
           <PostList users={users} posts={posts}/>
+        </Route>
+        <Route path="/users/:id">
+          <UserID userFn={userService.getAll} postFn={postService.getAll}/>
         </Route>
         <Route path="/users">
           <Users users={users}/>
@@ -119,6 +146,7 @@ function App() {
             loginForm():
             <div>
               <p>{user.username} logged in</p>
+              <button onClick={() => logout()}>Log Out</button>
               {postForm()}
             </div>
           }
