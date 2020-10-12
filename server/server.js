@@ -19,6 +19,7 @@ app.use('/api/users', usersRouter)
 app.use('/api/posts', postsRouter)
 app.use('/api/login', loginRouter)
 
+const path = require('path')
 app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')))
 
 const PORT = process.env.PORT || 3001

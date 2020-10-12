@@ -47,19 +47,6 @@ const Post = ({loggedUser, user, post}) => {
     // }
 
     if (user !== undefined) {
-        if (loggedUser === null) {
-            return (
-                <div className="post">
-                    <img src = {user.avatar} alt = {user.username}/>
-                    <p><a href={`/users/${user.id}`}>@{user.username}</a>: {post.timestamp}</p>
-                    <p>{post.content}</p>
-                    <button>Login to Like</button>
-                    <button>Login to Follow {user.username}</button>
-                    <a href={`/posts/${post.id}`}>See Post</a>
-                    {/* <button onClick={() => displayLikeUsers()}>See Liking Users</button> */}
-                </div>
-                )
-        }
         if (loggedUser !== null) {
             if (liked){
                 return (
@@ -86,6 +73,17 @@ const Post = ({loggedUser, user, post}) => {
             </div>
             )
         }
+            return (
+                <div className="post">
+                    <img src = {user.avatar} alt = {user.username}/>
+                    <p><a href={`/users/${user.id}`}>@{user.username}</a>: {post.timestamp}</p>
+                    <p>{post.content}</p>
+                    <button>Login to Like</button>
+                    <button>Login to Follow {user.username}</button>
+                    <a href={`/posts/${post.id}`}>See Post</a>
+                    {/* <button onClick={() => displayLikeUsers()}>See Liking Users</button> */}
+                </div>
+                )
     }
     else {
         return (
