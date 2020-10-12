@@ -19,6 +19,8 @@ app.use('/api/users', usersRouter)
 app.use('/api/posts', postsRouter)
 app.use('/api/login', loginRouter)
 
+app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')))
+
 const PORT = process.env.PORT || 3001
 console.log(PORT)
 app.listen(PORT, () => {
