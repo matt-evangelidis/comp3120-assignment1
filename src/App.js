@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
-import PostList from './components/PostList';
-import PostForm from './components/PostForm';
-import LoginForm from './components/LoginForm';
-import postService from './services/posts';
-import userService from './services/users';
-import loginService from './services/login'
-import Users from './components/Users'
-import Home from './components/Home'
-import PostID from './components/PostID'
-import UserID from './components/UserID'
+import PostList from './components/PostList.js';
+import PostForm from './components/PostForm.js';
+import LoginForm from './components/LoginForm.js';
+import postService from './services/posts.js';
+import userService from './services/users.js';
+import loginService from './services/login.js'
+import Users from './components/Users.js'
+import Home from './components/Home.js'
+import PostID from './components/PostID.js'
+import UserID from './components/UserID.js'
 
 import {
   BrowserRouter as Router,
