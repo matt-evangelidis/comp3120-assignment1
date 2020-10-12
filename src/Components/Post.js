@@ -3,7 +3,13 @@ import postService from '../services/posts'
 import userService from '../services/users'
 
 const Post = ({loggedUser, user, post}) => {
-    const[liked, setLiked] = useState()//useState(post.likes.includes(loggedUser.id))
+    const loggedUserLikes = () => {
+        if (loggedUser !== null) {
+            return post.likes.includes(loggedUser.id)
+        }
+    }
+    
+    const[liked, setLiked] = useState(loggedUserLikes())//useState(post.likes.includes(loggedUser.id))
     const[likeUsers, setLikedUsers] = useState()
 
     const likePost = () => {
@@ -13,12 +19,6 @@ const Post = ({loggedUser, user, post}) => {
     const unlikePost = () => {
         postService.unlikePost(loggedUser, post.id)
         setLiked(false)
-    }
-
-    const loggedUserLikes = () => {
-        if (loggedUser !== null) {
-            setLiked(post.likes.includes(loggedUser.id))
-        }
     }
     console.log("loggedUser", loggedUser)
 
@@ -46,32 +46,46 @@ const Post = ({loggedUser, user, post}) => {
     //     )
     // }
 
-    if (user != null) {
-        loggedUserLikes()
-        if (liked){
+    if (user !== undefined) {
+        if (loggedUser === null) {
+            return (
+                <div className="post">
+                    <img src = {user.avatar} alt = {user.username}/>
+                    <p><a href={`/users/${user.id}`}>@{user.username}</a>: {post.timestamp}</p>
+                    <p>{post.content}</p>
+                    <button>Login to Like</button>
+                    <button>Login to Follow {user.username}</button>
+                    <a href={`/posts/${post.id}`}>See Post</a>
+                    {/* <button onClick={() => displayLikeUsers()}>See Liking Users</button> */}
+                </div>
+                )
+        }
+        if (loggedUser !== null) {
+            if (liked){
+                return (
+                <div className="post">
+                    <img src = {user.avatar} alt = {user.username}/>
+                    <p><a href={`/users/${user.id}`}>@{user.username}</a>: {post.timestamp}</p>
+                    <p>{post.content}</p>
+                    <button onClick={() => unlikePost()}>Unlike Post</button>
+                    <button>Follow {user.username}</button>
+                    <a href={`/posts/${post.id}`}>See Post</a>
+                    {/* <button onClick={() => displayLikeUsers()}>See Liking Users</button> */}
+                </div>
+                )
+            }
             return (
             <div className="post">
                 <img src = {user.avatar} alt = {user.username}/>
                 <p><a href={`/users/${user.id}`}>@{user.username}</a>: {post.timestamp}</p>
                 <p>{post.content}</p>
-                <button onClick={() => unlikePost()}>Unlike Post</button>
+                <button onClick={() => likePost()}>Like Post</button>
                 <button>Follow {user.username}</button>
                 <a href={`/posts/${post.id}`}>See Post</a>
-                {/* <button onClick={() => displayLikeUsers()}>See Liking Users</button> */}
+                {/* {displayLikeUsers()} */}
             </div>
             )
         }
-        return (
-        <div className="post">
-            <img src = {user.avatar} alt = {user.username}/>
-            <p><a href={`/users/${user.id}`}>@{user.username}</a>: {post.timestamp}</p>
-            <p>{post.content}</p>
-            <button onClick={() => likePost()}>Like Post</button>
-            <button>Follow {user.username}</button>
-            <a href={`/posts/${post.id}`}>See Post</a>
-            {/* {displayLikeUsers()} */}
-        </div>
-        )
     }
     else {
         return (
