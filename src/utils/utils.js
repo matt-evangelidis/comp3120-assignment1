@@ -1,6 +1,6 @@
 const findUser = (users, post) => {
-    console.log("FindUserFn Users:", users)
-    console.log("FindUsersFn Post:", post)
+    //console.log("FindUserFn Users:", users)
+    //console.log("FindUsersFn Post:", post)
     const user = users.find(u => (u.id === post.user))
     //console.log("Found user: ", user)
     return user

@@ -3,7 +3,7 @@ import postService from '../services/posts'
 import userService from '../services/users'
 
 const Post = ({loggedUser, user, post}) => {
-    const[liked, setLiked] = useState(post.likes.includes(loggedUser.id))
+    const[liked, setLiked] = useState()//useState(post.likes.includes(loggedUser.id))
     const[likeUsers, setLikedUsers] = useState()
 
     const likePost = () => {
@@ -14,6 +14,13 @@ const Post = ({loggedUser, user, post}) => {
         postService.unlikePost(loggedUser, post.id)
         setLiked(false)
     }
+
+    const loggedUserLikes = () => {
+        if (loggedUser !== null) {
+            setLiked(post.likes.includes(loggedUser.id))
+        }
+    }
+    console.log("loggedUser", loggedUser)
 
     // const getLikeUsers = (likeUsers) => {
     //     const 
@@ -40,6 +47,7 @@ const Post = ({loggedUser, user, post}) => {
     // }
 
     if (user != null) {
+        loggedUserLikes()
         if (liked){
             return (
             <div className="post">
