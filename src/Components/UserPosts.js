@@ -1,6 +1,7 @@
 import React from 'react'
+import Post from './Post'
 
-const UserPosts = ({user, posts}) => {
+const UserPosts = ({loggedUser,user, posts}) => {
     
     if (posts.length <= 0) {
         return(
@@ -12,9 +13,9 @@ const UserPosts = ({user, posts}) => {
         return(
         <div>
             {posts.map(post =>
-            <p key={post.id}>
-                @{user.username}: {post.timestamp} {post.content}
-            </p>)}
+            <div className="post"key={post.id}>
+                <p>@{user.username}: {post.timestamp} {post.content}</p>
+            </div>)}
         </div>
     )}
 

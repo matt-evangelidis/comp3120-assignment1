@@ -133,10 +133,10 @@ function App() {
           <PostID loggedUser={user} userFn={userService.getAll} postFn={postService.getAll}/>
         </Route>
         <Route path="/posts">
-          <PostList loggedUser = {user} users={users} posts={posts}/>
+          <PostList loggedUser={user} users={users} posts={posts}/>
         </Route>
         <Route path="/users/:id">
-          <UserID userFn={userService.getAll} postFn={postService.getAll}/>
+          <UserID loggedUser={user} userFn={userService.getAll} postFn={postService.getAll}/>
         </Route>
         <Route path="/users">
           <Users users={users}/>

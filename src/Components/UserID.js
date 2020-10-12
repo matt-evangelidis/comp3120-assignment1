@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
 import UserPosts from './UserPosts'
 import User from './User'
+import PostList from './PostList'
 
-const UserID = ({userFn, postFn}) => {
+const UserID = ({loggedUser, userFn, postFn}) => {
     const [postData, setPostData] = useState()
     const [userData, setUserData] = useState()
     const id = useParams().id
@@ -32,7 +33,8 @@ const UserID = ({userFn, postFn}) => {
         return(
             <div>
                 <User user={user}/>
-                <UserPosts user={user} posts={userPosts}/>
+                <UserPosts loggedUser={loggedUser} user={user} posts={userPosts}/>
+                {/* <PostList loggedUser={loggedUser} users={user} posts={userPosts}/> */}
             </div>
         )
     }

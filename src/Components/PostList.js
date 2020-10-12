@@ -24,17 +24,24 @@ const PostList = ({loggedUser, users, posts}) => {
         setPosts(arr)
     }
     useEffect(() => sortLastFirst(posts),[posts])
+    
+
+    if (users !== null && posts !== null){
+    return (
+        <div>
+            <button onClick={() => sortFirstLast(posts)}>Sort By Most Recent</button>
+            <button onClick={() => sortLastFirst(posts)}>Sort By Oldest</button>
+            {sortedPosts.map(post => 
+            <Post key={post.id} 
+                loggedUser={loggedUser}
+                user={util.findUser(users, post)} 
+                post={post}/>)}
+        </div>
+        )
+    }
 
     return (
-    <div>
-        <button onClick={() => sortFirstLast(posts)}>Sort By Most Recent</button>
-        <button onClick={() => sortLastFirst(posts)}>Sort By Oldest</button>
-        {sortedPosts.map(post => 
-        <Post key={post.id} 
-            loggedUser={loggedUser}
-            user={util.findUser(users, post)} 
-            post={post}/>)}
-    </div>
+        <div>Loading</div>
     )
 }
 
